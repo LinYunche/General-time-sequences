@@ -1,0 +1,85 @@
+import scipy.integrate as integrate
+import numpy as np
+
+
+def f(t1, t2, t3, t4, t5):
+    x1 = 10**(-5)
+    x2 = (3.2257*10**(-4)*2.1802/(-3.2257+2.1802))* (np.exp(-3.2257*10**(-4) * t2)- np.exp(-2.1802*10**(-4)* t2))
+    x3 = 2.32*10**(-4)* np.exp(-2.32*10**(-4)  * t3)
+    x4 = 5*10**(-5) * np.exp(-5*10**(-5) * t4)
+    x5 = 1*10**(-5) * np.exp(-1*10**(-5) * t5)
+    return x1 * x2 * x3 * x4 * x5
+
+def f1(t1, t2, t3, t4, t5):
+    x1 = 10**(-9)
+    x2 = (3.2257*10**(-6)*2.1802/(-3.2257+2.1802))* (np.exp(-3.2257*10**(-6) * t2)- np.exp(-2.1802*10**(-6)* t2))
+    x3 = 2.32*10**(-6)* np.exp(-2.32*10**(-6)  * t3)
+    x4 = 5*10**(-8) * np.exp(-5*10**(-8) * t4)
+    x5 = 1*10**(-6) * np.exp(-1*10**(-6) * t5)
+    return x1 * x2 * x3 * x4 * x5
+
+def f2(t1, t2, t3, t4):
+    x1 = 10**(-9)
+    x2 = (3.2257*10**(-6)*2.1802/(-3.2257+2.1802))* (np.exp(-3.2257*10**(-6) * t2)- np.exp(-2.1802*10**(-6)* t2))
+    x3 = 2.32*10**(-6)* np.exp(-2.32*10**(-6)  * t3)
+    x4 = 5*10**(-8) * np.exp(-5*10**(-8) * t4)
+    return x1 * x2 * x3 * x4
+def f3(t1, t2, t3, t4):
+    x1 = 10**(-5)
+    x2 = (3.2257*10**(-4)*2.1802/(-3.2257+2.1802))* (np.exp(-3.2257*10**(-4) * t2)- np.exp(-2.1802*10**(-4)* t2))
+    x3 = 2.32*10**(-4)* np.exp(-2.32*10**(-4)  * t3)
+    x4 = 5*10**(-5) * np.exp(-5*10**(-5) * t4)
+    return x1*x2*x3*x4
+
+def f6(t1, t2,t3, t5):
+    x1 = 10**(-5)
+    x2 = (3.2257*10**(-4)*2.1802/(-3.2257+2.1802))* (np.exp(-3.2257*10**(-4) * t2)- np.exp(-2.1802*10**(-4)* t2))
+    x3 = 2.32 * 10 ** (-4) * np.exp(-2.32 * 10 ** (-4) * t3)
+    x5 = 1 * 10 ** (-5) * np.exp(-1 * 10 ** (-5) * t5)
+    return x1*x2*x3*x5
+
+def f6A(t1, t2, t3,t5):
+    x1 = 10**(-9)
+    x2 = (3.2257*10**(-6)*2.1802/(-3.2257+2.1802))* (np.exp(-3.2257*10**(-6) * t2)- np.exp(-2.1802*10**(-6)* t2))
+    x5 = 1 * 10 ** (-6) * np.exp(-1 * 10 ** (-6) * t5)
+    x3 = 2.32 * 10 ** (-6) * np.exp(-2.32 * 10 ** (-6) * t3)
+    return x1 * x2 * x5 * x3
+
+def f7A(t1, t2,t5):
+    x1 = 10**(-9)
+    x2 = (3.2257*10**(-6)*2.1802/(-3.2257+2.1802))* (np.exp(-3.2257*10**(-6) * t2)- np.exp(-2.1802*10**(-6)* t2))
+    x5 = 1 * 10 ** (-6) * np.exp(-1 * 10 ** (-6) * t5)
+    return x1 * x2 * x5
+
+# 定义五重积分的嵌套函数
+def inner_integral(t3):
+    def inner_inner(t2):
+        def inner_innermost(t1):
+            def innermost(t4):
+                return integrate.quad(lambda t5: f(t1, t2, t3, t4, t5),0, t1)[0]
+            return integrate.quad(innermost, 20000-t1-t2-t3, 1000000)[0]
+        return integrate.quad(inner_innermost, 0, 20000-t2-t3)[0]
+    return integrate.quad(inner_inner, 0, 20000-t3)[0]
+
+# 定义五重积分的嵌套函数
+#def inner_inner(t2):
+    #def inner_innermost(t1):
+        #def innermost(t3):
+            #return integrate.quad(lambda t5: f6A(t1, t2, t3,t5),0, t1)[0]
+        #return integrate.quad(innermost, 20000-t1-t2,100000000)[0]
+    #return integrate.quad(inner_innermost, 0, 20000-t2)[0]
+
+#def inner_inner(t1):
+    #def innermost(t2):
+        #return integrate.quad(lambda t5: f7A(t1, t2, t5),0, t1)[0]
+    #return integrate.quad(innermost, 20000-t1, 100000000)[0]
+
+
+#S1=integrate.quad(inner_inner, 0, 20000)[0]
+#S2=np.exp(-1*10**(-6)*20000)
+#result=S1*S2
+#S3=(1-np.exp(-1*10**(-6)*20000))*(1-10**(-9)*20000)
+
+result= integrate.quad(inner_integral, 0, 20000)[0]
+print("五维积分的值:", result)
+#print(S3)
