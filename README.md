@@ -202,6 +202,7 @@ D:\桌面\高度测量\venv\Scripts\python.exe D:/桌面/高度测量/ASTAR/RA.p
 进程已结束,退出代码0
 
 **Part 2  The finite integration problem when the upper bound is not infinite**
+
 As you can see, the upper limit integrals np.inf of some time series such as 4-5, 4-6, and 4-7 have been replaced with a maximum number.
 Limited by the limited equipment，all tests are conducted on the PC with 3.40 GHz, 20G of running memory, Intel(R) Core(TM) i5-8250U Windows 10 system environment and PyCharm 2022.2 compilation environment.
 Therefore, when np.inf is adopted as the upper limit of integration, the actual number of operations of the device may only be 10^5 to 10^6. 
