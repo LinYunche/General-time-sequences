@@ -1,4 +1,5 @@
 **Part 1：The calculation methods of different time sequences occurrence probabilities in the manuscript**
+
 #3-1
 import scipy.integrate as integrate
 import numpy as np
