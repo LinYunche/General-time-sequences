@@ -10,16 +10,20 @@ def f(t1, t2, t3):
     fx=x1*x2*x3
     return fx
 
+
 def inner_integral(t3):
     def inner_innermost(t2):
         upper_limit = t3 - t2
-        return integrate.quad(lambda t1: f(t1, t2, t3), 0, upper_limit)[0]
+        return integrate.quad(lambda t1: f(t1, t2, t3), 0, upper_limit)[0] 
     return integrate.quad(inner_innermost, 0, t3)[0]
+    
 result = integrate.quad(inner_integral, 0, 5000)[0]
 print("三重积分的值为:", result)
 
 D:\桌面\高度测量\venv\Scripts\python.exe D:/桌面/高度测量/test.py 
+
 三重积分的值为: 1.456395059004462e-07
+
 进程已结束,退出代码0
 
 #3-2
